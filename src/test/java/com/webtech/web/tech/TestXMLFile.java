@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Test;
 
 import com.webtech.web.tech.Model.Student;
 import com.webtech.web.tech.Model.StudentWrapper;
+import com.webtech.web.tech.Repository.StudentXMLMarshall;
 
 import jakarta.xml.bind.JAXBContext;
 import jakarta.xml.bind.Marshaller;
@@ -79,5 +80,15 @@ public class TestXMLFile {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Test
+    void testXMLRepository() throws Exception{
+        var list = createList();
+
+        var repository = new StudentXMLMarshall();
+
+        assertTrue(repository.marshallList(list));
+
     }
 }

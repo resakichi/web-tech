@@ -21,11 +21,11 @@ import jakarta.xml.bind.Unmarshaller;
 
 @Component
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
-public class StudentXMLSerialize {
+public class StudentXMLMarshall {
     
     private final String filename = "src/main/resources/database.xml";
 
-    public void serializeList(List<Student> data){
+    public boolean marshallList(List<Student> data){
         StudentWrapper wrapper = new StudentWrapper();
         wrapper.setStudents(data);
         try {
@@ -38,20 +38,23 @@ public class StudentXMLSerialize {
 
             try (FileWriter fileWriter = new FileWriter(filename)) {
                 fileWriter.write(writer.toString());
+
             }catch(IOException e){
                 e.printStackTrace();
+                return false;
             }
-
         } catch (JAXBException e) {
             e.printStackTrace();
+            return false;
         }
+        return true;
     }
 
-    public List<Student> unserializeList(){
+    public List<Student> unmarshallList(){
 
         try(BufferedReader reader = new BufferedReader(new FileReader(filename))){
 
-            JAXBContext context = JAXBContext.newInstance(Student.class);
+            JAXBContext context = JAXBContext.newInstance(StudentWrapper.class, Student.class);
             Unmarshaller unmarshaller = context.createUnmarshaller();
 
             StudentWrapper wrapper = (StudentWrapper) unmarshaller.unmarshal(reader);

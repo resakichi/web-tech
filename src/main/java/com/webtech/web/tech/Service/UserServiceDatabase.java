@@ -3,6 +3,7 @@ package com.webtech.web.tech.Service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import com.webtech.web.tech.Model.Student;
@@ -10,6 +11,7 @@ import com.webtech.web.tech.Repository.StudentRepository;
 
 
 @Service
+@Profile("database")
 public class UserServiceDatabase implements UserService {
 
     @Autowired
@@ -26,14 +28,25 @@ public class UserServiceDatabase implements UserService {
     }
 
     @Override
-    public Student addStudent(Student student) {
-        return repository.save(student);
+    public boolean addStudent(Student student){
+        try{
+            repository.save(student);
+        }catch(Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     @Override
-    public Student editStudent(Student student) {
-        Student entity = repository.save(student);
-        return entity;
+    public boolean editStudent(Student student) {
+        try {
+            repository.save(student);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 
     @Override

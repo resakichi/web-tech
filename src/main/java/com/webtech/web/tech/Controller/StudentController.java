@@ -9,6 +9,7 @@ import com.webtech.web.tech.Service.UserService;
 import java.util.List;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
+@CrossOrigin
 @RestController
 @RequestMapping("/student")
 public class StudentController {
@@ -40,8 +41,8 @@ public class StudentController {
     }
 
     @PostMapping("/")
-    public String createStudent(@RequestBody Student param) {        
-        return userService.addStudent(param).toString();
+    public boolean createStudent(@RequestBody Student param) {        
+        return userService.addStudent(param);
     }
 
     @PutMapping("/{id}")

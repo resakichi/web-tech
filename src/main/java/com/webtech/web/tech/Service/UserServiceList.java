@@ -3,11 +3,13 @@ package com.webtech.web.tech.Service;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
 
 import com.webtech.web.tech.Model.Student;
 
 @Service
+@Profile("list")
 public class UserServiceList implements UserService {
 
     private final List<Student> storage = new ArrayList<>();
@@ -28,20 +30,19 @@ public class UserServiceList implements UserService {
     }
 
     @Override
-    public Student addStudent(Student student) {
-        storage.add(student);
-        return student;
+    public boolean addStudent(Student student) {
+        return storage.add(student);
     }
 
     @Override
-    public Student editStudent(Student student) {
+    public boolean editStudent(Student student) {
         for (int i = 0; i < storage.size(); i++) {
             if (storage.get(i).equals(student)){
                 storage.set(i, student);
-                return student;
+                return true;
             }
         }
-        return null;
+        return false;
     }
 
     @Override
