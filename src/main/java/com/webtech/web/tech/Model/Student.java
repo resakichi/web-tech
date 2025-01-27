@@ -21,7 +21,7 @@ public class Student {
     @Column(name="STUDENT_SURNAME", length=70, nullable=false, unique=false)
     private String surname;
 
-    @Column(name="STUDENT_THIRDNAME", length=70, nullable=false, unique=false)
+    @Column(name="STUDENT_THIRDNAME", length=70, nullable=true, unique=false)
     private String thirdName;
 
     public Student(){}

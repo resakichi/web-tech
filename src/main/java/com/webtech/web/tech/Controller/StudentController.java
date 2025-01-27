@@ -31,8 +31,8 @@ public class StudentController {
     }
 
     @GetMapping("/")
-    public List<Student> getStudentsList() {
-        return userService.getStudents();
+    public List<Student> getStudentsList(@RequestParam String parameter) {
+        return userService.getStudents(parameter);
     }
     
     @GetMapping("/{id}")
@@ -41,7 +41,7 @@ public class StudentController {
     }
 
     @PostMapping("/")
-    public boolean createStudent(@RequestBody Student param) {        
+    public boolean createStudent(@RequestBody Student param) {    
         return userService.addStudent(param);
     }
 
@@ -52,8 +52,7 @@ public class StudentController {
     
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteStudent(@RequestParam Integer id){
+    public void deleteStudent(@PathVariable Integer id){
         userService.deleteStudent(id);
     }
-    
 }

@@ -8,6 +8,7 @@ import java.io.StringWriter;
 import java.util.List;
 
 import org.springframework.beans.factory.config.ConfigurableBeanFactory;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -20,6 +21,7 @@ import jakarta.xml.bind.Marshaller;
 import jakarta.xml.bind.Unmarshaller;
 
 @Component
+@Lazy
 @Scope(ConfigurableBeanFactory.SCOPE_SINGLETON)
 public class StudentXMLMarshall {
     

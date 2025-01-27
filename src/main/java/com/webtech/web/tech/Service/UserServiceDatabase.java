@@ -18,8 +18,11 @@ public class UserServiceDatabase implements UserService {
     StudentRepository repository;
 
     @Override
-    public List<Student> getStudents() {
-        return repository.findAll();
+    public List<Student> getStudents(String parameter) {
+        if (parameter == null){
+            return repository.findAll();    
+        }
+        return repository.filterByName(parameter);
     }
 
     @Override
@@ -53,5 +56,4 @@ public class UserServiceDatabase implements UserService {
     public void deleteStudent(int id) {
         repository.deleteById(id);
     }
-    
 }

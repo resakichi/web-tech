@@ -2,6 +2,7 @@ package com.webtech.web.tech.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Service;
@@ -13,10 +14,16 @@ import com.webtech.web.tech.Model.Student;
 public class UserServiceList implements UserService {
 
     private final List<Student> storage = new ArrayList<>();
+    private int idCounter = 0;
 
     @Override
-    public List<Student> getStudents() {
-        return storage;
+    public List<Student> getStudents(String param) {
+        if (param == null){
+            return storage;    
+        }
+        return storage.stream()
+        .filter(obj -> obj.getName().contains(param))
+        .collect(Collectors.toList());
     }
 
     @Override
@@ -31,6 +38,7 @@ public class UserServiceList implements UserService {
 
     @Override
     public boolean addStudent(Student student) {
+        student.setId(idCounter++);
         return storage.add(student);
     }
 
@@ -52,6 +60,5 @@ public class UserServiceList implements UserService {
                 storage.remove(i);
             }
         }
-    }
-    
+    } 
 }
